@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express(); app.use(express.json());
 app.get("/", (req, res) => { res.send("Иришка работает!"); });
-app.post("/", async (req, res) => { const body = req.body; const userText = body.request?.original_utterance  body.request?.command  "";
+app.post("/", async (req, res) => { const body = req.body; const userText = body.request?.original_utterance || body.request?.command  "";
 const session = body.session  {}; const version = body.version  "1.0";
 function aliceResponse(text) { return { version, session, response: { text: text.slice(0, 1000), end_session: false } }; }
 if (!userText.trim()) { return res.json( aliceResponse("Привет! Я Иришка. Задавай мне любой вопрос!") ); }
